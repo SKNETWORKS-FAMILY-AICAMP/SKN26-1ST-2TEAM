@@ -128,27 +128,29 @@ with st.container(border=True):
     c1, c2, c3 = st.columns([2, 1, 1])
 
     with c1:
-        in_model = st.text_input("모델명", "아반떼")
+        in_model = st.text_input("모델명", "아반떼", key="model_name")
 
     with c2:
         # 등급 선택 안 함 체크박스 및 셀렉트박스
-        use_grade = st.checkbox("등급 지정", value=True)
+        use_grade = st.checkbox("등급 지정", value=True, key="use_grade")
         in_grade = st.selectbox(
             "등급",
             ["1등급", "2등급", "3등급", "4등급", "5등급"],
             index=1,
-            disabled=not use_grade  # 체크 해제 시 비활성화
+            disabled=not use_grade,  # 체크 해제 시 비활성화
+            key="in_grade"
         )
         # 선택 안 함일 경우 변수 처리
         final_grade = in_grade if use_grade else None
 
     with c3:
         # 출시연도 선택 안 함 체크박스 및 텍스트입력
-        use_year = st.checkbox("연도 지정", value=True)
+        use_year = st.checkbox("연도 지정", value=True, key="use_year")
         in_year = st.text_input(
             "출시연도",
             "2023",
-            disabled=not use_year  # 체크 해제 시 비활성화
+            disabled=not use_year,  # 체크 해제 시 비활성화
+            key="in_year"
         )
         # 선택 안 함일 경우 변수 처리
         final_year = in_year if use_year else None
