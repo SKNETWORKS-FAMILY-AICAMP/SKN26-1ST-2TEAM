@@ -211,4 +211,4 @@ __marimo__/
 .idea
 .gitignore
 **/.env
-**/test.py
+**/test*
