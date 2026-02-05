@@ -22,15 +22,16 @@ load_dotenv()
 OPINET_API_KEY = os.getenv('OPINET_API_KEY')
 
 # 키가 제대로 들어왔는지 콘솔이나 화면에 잠시 출력해봅니다 (확인 후 삭제)
-if not OPINET_API_KEY:
-    st.error("🚨 .env 파일에서 API 키를 읽어오지 못했습니다! 변수명을 확인하세요.")
-st.write(OPINET_API_KEY)
+# if not OPINET_API_KEY:
+#     st.error("🚨 .env 파일에서 API 키를 읽어오지 못했습니다! 변수명을 확인하세요.")
+# st.write(OPINET_API_KEY)
+
 # ---------------------------------------------------------
 # 2. 데이터 처리 함수
 # ---------------------------------------------------------
 
 # @st.cache_data
-def get_vehicle_info(comp_nm, model_nm, grade, year):
+def get_vehicle_info(model_nm, grade, year):
     """API 호출 실패 시 사용할 목업 데이터 리스트를 포함합니다."""
 
     # --- [MOCKUP DATA START] ---
@@ -91,7 +92,7 @@ def get_vehicle_info(comp_nm, model_nm, grade, year):
     # # 매칭되는 목업조차 없다면 None을 반환 (전기차 잔상 방지 핵심)
     # return None
 
-    # 입력한 글자가 포함된 차가 있는지 찾기
+    # 입력한 모델명이 포함된 차가 있는지 찾기
     for car in mock_db:
         if model_nm in car["MODEL_NM"]:
             return car
@@ -126,29 +127,63 @@ if 'api_res' not in st.session_state:
     st.session_state.api_res = None
 
 # [STEP 1] 차량 정보 입력
-st.subheader("1️⃣ 차량 정보 입력 (API 조회)")
+st.subheader("1️⃣ 차량 정보 입력")
 with st.container(border=True):
-    c1, c2, c3, c4 = st.columns(4)
+    # 업체명을 삭제하고 컬럼을 3개로 조정
+    c1, c2, c3 = st.columns([2, 1, 1])
+
     with c1:
-        in_comp = st.text_input("업체명", "현대")  # 예시 변경
-    with c2:
         in_model = st.text_input("모델명", "아반떼")
+
+    with c2:
+        # 등급 선택 안 함 체크박스 및 셀렉트박스
+        use_grade = st.checkbox("등급 지정", value=True)
+        in_grade = st.selectbox(
+            "등급",
+            ["1등급", "2등급", "3등급", "4등급", "5등급"],
+            index=1,
+            disabled=not use_grade  # 체크 해제 시 비활성화
+        )
+        # 선택 안 함일 경우 변수 처리
+        final_grade = in_grade if use_grade else None
+
     with c3:
-        in_grade = st.selectbox("등급", ["1등급", "2등급", "3등급", "4등급", "5등급"], index=1)
-    with c4:
-        in_year = st.text_input("출시연도", "2023")
+        # 출시연도 선택 안 함 체크박스 및 텍스트입력
+        use_year = st.checkbox("연도 지정", value=True)
+        in_year = st.text_input(
+            "출시연도",
+            "2023",
+            disabled=not use_year  # 체크 해제 시 비활성화
+        )
+        # 선택 안 함일 경우 변수 처리
+        final_year = in_year if use_year else None
 
     if st.button("🔍 차량 사양 조회", use_container_width=True):
-        # [핵심] 버튼 누르자마자 세션을 비우고 화면을 강제로 다시 그리게 함
         st.session_state.api_res = None
 
         with st.spinner('데이터를 찾는 중...'):
-            result = get_vehicle_info(in_comp, in_model, in_grade, in_year)
+            # 업체명은 제거하고 나머지 인자 전달
+            result = get_vehicle_info(in_model, final_grade if final_grade else "",
+                                      final_year if final_year else "")
+
             if result:
                 st.session_state.api_res = result
-                st.rerun()  # 데이터를 새로 가져왔으므로 페이지를 다시 그림
+                st.rerun()
             else:
-                st.error(f"❌ '{in_model}'에 대한 정보를 찾을 수 없습니다. (아반떼, 그랜저, 아이오닉5, A220 중 입력해보세요)")
+                st.error(f"❌ '{in_model}' 정보를 찾을 수 없습니다. (목업 데이터: 아반떼, 그랜저)")
+
+# 버튼 누르면 잘 넘어왔는지 if 문
+# api 조회 후 모델 연비 선택지 띄우기
+# 사용자가 모델 연비 고르면 고른거 잘 됐는지 if
+# 가격 검색 선택지
+# 가격까지 고르면 뒤의 UI요소 출력
+
+# 부품 고르기
+# 부품명, 교체주기는 입력 안되게 막기
+# 칼럼 하나 더 추가 사용자가 입력한 월간 주행거리 기반으로 교체주기 km 계산해서 예상 교치 시기 알려주기 (n개월 뒤)
+
+# 마지막에 선택한 차량 모델 정보, 가격 띄우기
+# 그 아래에 비용 표 그대로
 
 if st.session_state.api_res:
     api_res = st.session_state.api_res
