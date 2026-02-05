@@ -54,6 +54,4 @@ class ApiCar:
             print("Error Code:" + response.status_code)
         return res
 
-api = ApiCar()
-api_car = api.getdata(str(input('차종을 입력하세요: ')))
-print(api_car)
+apicar = ApiCar()
