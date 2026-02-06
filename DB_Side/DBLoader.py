@@ -39,3 +39,7 @@ def sendquerys_with_commit(querys:list[str]) -> list:
     except mysql.connector.Error as err:
         print(err)
         return []
+
+def db_search(table_name:str, user_input:str)->list[tuple]:
+    testDB = sendquery(f'select * from {table_name} where model_name like \'%{user_input}%\'')
+    return testDB
