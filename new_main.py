@@ -1,7 +1,7 @@
-import sys
 import streamlit as st
 import pandas as pd
 from API_Side import CarOil, CarPrice, OilPrice
+from DB_Side import DBLoader
 
 # ---------------------------------------------------------
 # 페이지 전체 세팅
@@ -20,11 +20,11 @@ if "in_oil" not in st.session_state:
     # [6]:주행거리, [7]:연료비, [8]:등급, [9]:배기량, [10]:연도
 
 if "in_price" not in st.session_state:
-    st.session_state["in_price"] = ["미선택", 0, 0]
+    st.session_state["in_price"] = None
     # [0]:가격명, [1]:최저가, [2]:최고가
 
 if "open_result" not in st.session_state:
-    st.session_state["open_result"] = [False, False]
+    st.session_state["open_result"] = False
 
 # [STEP 1] 차량 정보 입력
 st.subheader("1️⃣ 차량 정보 입력")
@@ -58,12 +58,12 @@ with st.container(border=True):
 
     search_button = st.button("🔍 차량 사양 조회", use_container_width=True)
 
-    st.session_state["open_result"][0] = st.session_state["open_result"][0] or search_button
+    st.session_state["open_result"] = st.session_state["open_result"] or search_button
 
 # ---------------------------------------------------------
 # 연비 입력
 # ---------------------------------------------------------
-if not st.session_state["open_result"][0]:
+if not st.session_state["open_result"]:
     st.stop()
 
 # 2. API 데이터 호출
@@ -73,6 +73,7 @@ columns = [
     "고속도로효율", "1회충전주행거리", "예상연료비", "등급", "배기량", "연식"
 ]
 
+default_value = "모델을 선택해주세요"
 search_result = CarOil.getdata(st.session_state["model_name"])
 
 #-----------------------------------------------------------------------------------------------------
@@ -104,7 +105,6 @@ if filtered_data:
     # 전체 결과를 표로 먼저 보여주기
     st.dataframe(df, use_container_width=True)
 
-    default_value = "모델을 선택해주세요"
     select_options = [default_value, *df["모델명"].unique()]
 
     # 셀렉트박스로 특정 모델 상세 선택
@@ -118,19 +118,27 @@ if filtered_data:
 
     # 선택한 모델의 정보만 추출해서 보여주기
     detail_info = df[df["모델명"] == selected_model]
+    for row in search_result:
+        if row[0] == selected_model:
+            st.session_state["in_oil"] = row
+            break
     st.write(f"### 🔍 {selected_model} 상세 정보")
     st.table(detail_info)  # 혹은 st.json(detail_info.to_dict('records')[0])
 else:
     st.warning("검색 결과가 없습니다. 필터 조건을 확인해주세요.")
     st.stop()
 
+# print("===============================================")
+# print(type(st.session_state["in_oil"]))
+# print(st.session_state["in_oil"])
+# print("===============================================")
+
 # ---------------------------------------------------------
 # 가격 입력
 # ---------------------------------------------------------
-
 price_list = CarPrice.getdata(st.session_state["model_name"])
 
-option_list = []
+option_list = [default_value,]
 for row in price_list:
     option_list.append(row[0])
 
@@ -157,18 +165,26 @@ for row in price_list:
 
         st.caption("※ 위 가격은 선택 옵션 및 트림에 따라 달라질 수 있습니다.")
 
-st.selectbox("당신의 차종을 골라주세요", option_list, key="in_price")
+selected_model = st.selectbox("당신의 차종을 골라주세요", option_list, key="in_price_selected")
 
+if selected_model == default_value:
+    st.stop()
 
-st.stop()
+for row in price_list:
+    if row[0] == selected_model:
+        st.session_state["in_price"] = row
+        break
+
+# print("===============================================")
+# print(type(st.session_state["in_price"]))
+# print(st.session_state["in_price"])
+# print("===============================================")
 
 # ---------------------------------------------------------
 # 주행 패턴 / 연비 선택
 # ---------------------------------------------------------
-if not st.session_state["open_result"][2]:
-        st.stop()
 
-in_oil = []
+in_oil = st.session_state["in_oil"]
 
 # [STEP 2] 주행 패턴 및 연비 선택
 st.write("")
@@ -203,7 +219,7 @@ st.subheader("3️⃣ 정비 부품 및 소모품 설정")
 cc_val = in_oil[9]
 
 # 데이터 가져오기
-df_filtered = [] # get_maintenance_db(cc_val, monthly_km)
+df_filtered = DBLoader.sendquery("select * from parts")
 
 edited_df = st.data_editor(
     df_filtered,
@@ -228,11 +244,10 @@ if st.button("💰 월간/연간 운영비용 합산 결과 보기", type="prima
         if fuel_type == "전기":
             current_fuel_price = 347
         else:
-            apioil = ApiOil()
             # '전기+휘발유' 같은 경우 '휘발유'로 매핑
             fuel_map = {"가솔린": "휘발유", "디젤": "경유", "LPG": "자동차용부탄가스", "전기+휘발유": "휘발유", "휘발유 하이브리드": "휘발유"}
             search_fuel = fuel_map.get(fuel_type, "휘발유")
-            current_fuel_price = apioil.getdata(search_fuel)
+            current_fuel_price = OilPrice.getdata(search_fuel)
 
     except Exception as e:
         st.error(f"유가 서비스 연결 중 오류 발생: {e}")
