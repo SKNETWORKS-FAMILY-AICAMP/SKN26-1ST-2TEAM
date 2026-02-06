@@ -1,10 +1,10 @@
 # 프로젝트 팀 및 역할
 ### 조이라이더스(Joy-Riders)
 
-| 유동현 | 박소윤 | 서민혁 | 이레 | 정영일 | 최수아 |
-|:---:|:---:|:---:|:---:|:---:|:---:|
+| 유동현 | 박소윤 | 서민혁 | 이레 | 정영일 |                                                                                                             최수아                                                                                                              |
+|:---:|:---:|:---:|:---:|:---:|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
 | <img src="https://i.namu.wiki/i/Cda6-Qr5r00IrtXp4OH7WFdhr2Mrj-IYIjCOCghUG9Xiolrem0x-BBiRGs16IiHsw9yObt16e5FblXsAq4ynCyuXN0xnSi-Y8XPrXXHEEZxuTj2nSafD7v7eK79kce0hD-69tdb5c3GkS2wFn5J0Mw.webp" width="80" height="80"/><br/>에띠 | <img src="https://i.namu.wiki/i/l3E6VQZaDIPYkl1IdeXPHYmLt-O8CmNHmEDrMBdrGDopkkz-tHu-1uJrhyelGV6-RrxE7nESgOez5uzu1oX89I6_bd5fVhkV762jMYRmMAe_wf65tEMPemmThG4NZ1kyjQIbYvit4jmudY0Z9FSO8w.webp" width="80" height="80"/><br/>디지니 | <img src="https://i.namu.wiki/i/ICwyD2eNnz2fE_oq5yihq0FaIg4hU6-9XNCNOdjiHngaO2lKCdDKAe5bAndCL8Uutc5eTe1sS7wqaYpWezmnJKcAWZgoGWClvL7AoXJlhBZvFCIIuqJOx-SpPT9l3a9FKfGFGvmR-lfrsftVn5_JVQ.webp" width="80" height="80"/><br/>다오 | <img src="https://i.namu.wiki/i/bFCBM0po2mvsB4UwAJ9TGOcYY3xBHDxCi8Tb3n9J0PwNhRdeJw0F5ti3K-UtY3gKEtYekX30bioDE6S2JqwCeDmOu_LaR9ZW2bzjDMTsHG70D6hCfAbBGzAOGA4j3FRM8Z7HDnNl-1vhTDmKW8g6jA.webp" width="80" height="80"/><br/>마리드 | <img src="https://i.namu.wiki/i/r4-a-AMb7pEru3fDaXTtjsbBrRXW4JKVnhFzFeMtiihRXdzJIPEYRJWkpwADwpbPaZHa8Zmxg94EXUCdjcZkAHQck70JmGlL9CmF_wj4_SwfDmBRfjACtdnltdoBTKsxhIvmcUce3o2PTrfbhw75OQ.webp" width="80" height="80"/><br/>배찌 | <img src="https://i.namu.wiki/i/O0US9lhxqPjTAlzOZ3zoVcwwqUUpY49DJqeNiYK4bwb4n9eVQkrsT11ThJr4uwQB18OwEILi8FDExMaRifLBVTwc-sGAa7rfut7--pvfKcEyVmMpBkKqGHeXLuv3IOThciTMx_CwIia-Gjja3yzkYw.webp" width="80" height="80"/><br/>우니 |
-| [@Ocean-2930](https://github.com/Ocean-2930) | [@parksoyun9084-cloud](https://github.com/parksoyun9084-cloud) | [@minhyeok328](https://github.com/minhyeok328) | [@leere2424](https://github.com/leere2424) | [@wjdduddlf112](https://github.com/wjdduddlf112) | [@sooa](https://github.com/sooa) |
+| [@Ocean-2930](https://github.com/Ocean-2930) | [@parksoyun9084-cloud](https://github.com/parksoyun9084-cloud) | [@minhyeok328](https://github.com/minhyeok328) | [@leere2424](https://github.com/leere2424) | [@wjdduddlf112](https://github.com/wjdduddlf112) | [@sooa02](https://github.com/sooa02) |
 
 
 - 유동현: 조장
