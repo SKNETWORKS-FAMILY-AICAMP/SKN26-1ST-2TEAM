@@ -49,7 +49,7 @@ class ApiCar:
                 buff = []
                 for key in keys:
                     buff.append(item[key])
-                res.append(buff)
+                res.append(tuple(buff))
         else:
             print("Error Code:" + response.status_code)
         return res
