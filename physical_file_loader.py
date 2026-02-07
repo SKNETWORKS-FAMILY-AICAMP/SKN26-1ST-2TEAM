@@ -1,5 +1,5 @@
 from DB_Side import DBLoader
-from module.CSVModule import csv_import
+from DB_Side.CSVModule import csv_import
 
 def export_table(table_name: str, attributes: tuple, indata: list[tuple]):
     """
