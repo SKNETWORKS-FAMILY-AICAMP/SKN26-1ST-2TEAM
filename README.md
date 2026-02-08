@@ -379,7 +379,7 @@ erDiagram
 - 검색 결과 중 특정 모델 선택
 - 차량 제원 및 가격 데이터 확인
 
-![차량 검색 결과]([images/ui_step2.png](https://github.com/joy-riders/joy-riders/blob/main/images/ui_step1.png))
+![차량 검색 결과](https://github.com/joy-riders/joy-riders/blob/main/images/ui_step1.png)
 
 ---
 
@@ -388,7 +388,7 @@ erDiagram
 - 주행 패턴 및 월간 주행거리 입력
 - 정비 부품별 교체 주기 및 비용 반영
 
-![주행 및 정비 설정 화면]([images/ui_step3.png](https://github.com/joy-riders/joy-riders/blob/main/images/ui_step2.png))
+![주행 및 정비 설정 화면](https://github.com/joy-riders/joy-riders/blob/main/images/ui_step2.png)
 
 ---
 
@@ -397,7 +397,7 @@ erDiagram
 - 유류비, 세금, 정비비를 포함한 월/연간 유지비 산출
 - 실시간 유가 정보 반영
 
-![TCO 결과 화면]([images/ui_result.png](https://github.com/joy-riders/joy-riders/blob/main/images/ui_step3.png))
+![TCO 결과 화면](https://github.com/joy-riders/joy-riders/blob/main/images/ui_step3.png)
 
 ## 7. 기대 효과 및 활용 방안 (Expected Impact & Use Cases)
 
